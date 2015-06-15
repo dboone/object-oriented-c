@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <assert.h>
 
 #include "Set.h"
@@ -8,17 +9,33 @@
 
 static int heap[SIZE];
 
+void printUsage()
+{
+	int* p;
+	int free = 0;
+
+	for ( p = heap + 1; p < heap + SIZE; ++p )
+	{
+		if ( *p )
+		{
+			++free;
+		}
+	}
+	printf( "Using %d of %d blocks\n", free, SIZE );
+}
+
 void* new( const void* type, ... )
 {
 	int* p;
 	for ( p = heap + 1; p < heap + SIZE; ++p )
 	{
-		if (!*p)
+		if ( !*p )
 		{
 			break;
 		}
 	}
 	assert( p < heap + SIZE );
+	printf( "Allocated memory...\n" );
 	*p = SIZE;
 	return p;
 }
@@ -31,6 +48,7 @@ void delete( void* _item )
 	{
 		assert( item > heap && item < heap + SIZE );
 		*item = 0;
+		printf( "Deallocated memory...\n" );
 	}
 }
 

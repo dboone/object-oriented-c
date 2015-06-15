@@ -14,6 +14,8 @@ int main()
 	void* b = add( s, new( Object ) );
 	void* c = new( Object );
 
+	printUsage();
+
 	if ( contains( s, a ) && contains( s, b ) )
 		printf("OK: Set S contains Object a and b.\n");
 	if ( contains( s, c ) )
@@ -23,8 +25,12 @@ int main()
 	if ( contains( s, drop( s, a ) ) )
 		printf( "FAIL: Set S should not contain Object a!\n");
 
-	delete( drop( s, b ) );
-	delete( drop( s, c ) );
+	delete( c );
+	delete( b );
+	delete( a );
+	delete( s );
+
+	printUsage();
 
 	return 0;
 }
